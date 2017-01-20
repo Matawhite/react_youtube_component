@@ -4,17 +4,15 @@ import SearchBar from './components/SearchBar';
 import ApiKey from './apiKey';
 import YTSearch from 'youtube-api-search';
 import VideoList from './components/videoList';
+import VideoDetail from './components/videoDetail';
 
-
-
-// // Create a new Component and it should produce some HTML
 class App extends Component{
   constructor(props){
     super(props);
 
     this.state = {videos: []};
 
-    YTSearch({key: ApiKey, term: 'surfboards'}, (videos) => {
+    YTSearch({key: ApiKey, term: 'huskies'}, (videos) => {
       this.setState({videos})
       //this.setState({videos: videos})
     })
@@ -23,10 +21,11 @@ class App extends Component{
     return(
       <div>
         <SearchBar />
+        <VideoDetail video={this.state.videos[0]} />
         <VideoList videos={this.state.videos} />
       </div>
     );
   }
 };
-//Insert the Component on the page (in the DOM)
+
 ReactDOM.render(<App />, document.querySelector('.container'))
