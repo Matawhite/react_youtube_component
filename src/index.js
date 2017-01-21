@@ -5,6 +5,7 @@ import ApiKey from './apiKey';
 import YTSearch from 'youtube-api-search';
 import VideoList from './components/videoList';
 import VideoDetail from './components/videoDetail';
+import _ from 'lodash';
 
 class App extends Component{
   constructor(props){
@@ -26,13 +27,16 @@ class App extends Component{
   }
 
   render(){
+    {/* throttles search */}
+    const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 400);
+    
     return(
       <div>
         {/* for the onVideoSelect function whatever video is selected, that selection is passed an argument to the
           below function. Now VideoList has a function called onVideoSelect, or rather props.onVideoSelect
           and will continued to be passed to VideoListItem, same name. State is being updated by passing the setState
           function down to the child components */}
-        <SearchBar onSearchTermChange={term => this.videoSearch(term) }/>
+        <SearchBar onSearchTermChange={videoSearch}/>
         <VideoDetail video={this.state.selectedVideo} />
         <VideoList
           onVideoSelect={selectedVideo => this.setState({selectedVideo})}
