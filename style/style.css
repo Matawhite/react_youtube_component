@@ -2,6 +2,10 @@
   cursor: pointer;
 }
 
+.fa {
+  background-color: #eee;
+}
+
 .list-group-item:hover {
   background-color: #eee;
 }
